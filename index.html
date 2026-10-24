@@ -106,6 +106,7 @@ path.p.sel{fill-opacity:1;stroke:var(--ink);stroke-width:3}
 #card.dragging{opacity:.96;box-shadow:0 14px 40px rgba(15,30,40,.35)}
 #card.dragged{width:275px}
 @media (max-width:700px){#card.dragged{width:min(275px,calc(100% - 16px));max-height:70%}}
+#card .oml li{display:block;padding:5px 0}#card .oml li span{display:block;font-weight:600;font-size:.76rem;line-height:1.25}#card .oml li small{display:block;color:var(--mute);font-size:.68rem;margin-top:1px}
 </style></head>
 <body>
 <header><h1>Empresas de aerolevantamento inscritas – Categoria A</h1>
@@ -133,6 +134,7 @@ var ufTot={};D.uf.forEach(function(u){ufTot[u[0]]=u[1]});
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function km(a,b,c,d){var r=Math.PI/180,q=Math.sin((c-a)*r/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin((d-b)*r/2)**2;return 12742*Math.asin(Math.sqrt(q))}
 function pl(n,a,b){return n+' '+(n==1?a:b)}
+function nomes(o){return o.d.split(';').map(function(s){return s.trim()}).join(' · ')}
 function kz(){return Math.min(2.4,.7+.12*map.getZoom())}
 function rad(p){return (4+1.6*Math.sqrt(p.n))*kz()}
 function hitR(p){return Math.max(16,rad(p)+6)}
@@ -147,7 +149,7 @@ D.pts.forEach(function(p){
  var h=L.circleMarker([p.y,p.x],{radius:hitR(p),className:'ph',bubblingMouseEvents:false}).addTo(map);
  h.d=p;h.c=p.el;hs.push(h);wire(h,p.el)});
 D.om.forEach(function(o){
- var e=L.marker([o.y,o.x],{icon:L.divIcon({className:'omi',iconSize:[18,18]}),keyboard:true,title:o.c+' ('+o.u+') – '+o.r,zIndexOffset:500}).addTo(map);
+ var e=L.marker([o.y,o.x],{icon:L.divIcon({className:'omi',iconSize:[18,18]}),keyboard:true,title:o.c+' ('+o.u+') – '+o.r+': '+nomes(o),zIndexOffset:500}).addTo(map);
  e.d=o;o.t='o';o.el=e;os.push(e);
  o.near=D.pts.filter(function(p){return km(o.y,o.x,p.y,p.x)<=50});
  o.nn=o.near.reduce(function(s,p){return s+p.n},0);wire(e)});
@@ -175,7 +177,7 @@ function html(d,pin){
    +'<div class="bar"><i style="width:'+Math.min(100,pu)+'%"></i></div>'
    +empHtml(d,pin)
    +'<div class="sec">Organizações militares em até 50 km</div>'
-   +(d.oms.length?'<ul>'+d.oms.map(function(o){return '<li><span>'+esc(o.c)+'</span><em>'+esc(o.r)+'</em></li>'}).join('')+'</ul>':'<div style="color:var(--mute)">Nenhuma na amostra</div>');
+   +(d.oms.length?'<ul class="oml">'+d.oms.map(function(o){return '<li><span>'+esc(o.c)+' · '+esc(o.r)+'</span><small>'+esc(nomes(o))+'</small></li>'}).join('')+'</ul>':'<div style="color:var(--mute)">Nenhuma na amostra</div>');
  }else{
   h+='<div class="big">'+d.nn+'<small>'+(d.nn==1?'empresa':'empresas')+' em até 50 km</small></div>'
    +'<div class="sec">Unidades</div><ul>'+d.d.split(';').map(function(u){return '<li><span>'+esc(u.trim())+'</span></li>'}).join('')+'</ul>'
@@ -310,7 +312,7 @@ var EMP=[];D.pts.forEach(function(p){(p.e||[]).forEach(function(x){EMP.push({n:n
 function local(q){
  var n=nz(q.trim());if(!n)return [];var r=[];
  D.pts.forEach(function(p){var s=nz(p.c).indexOf(n);if(s>=0)r.push({s:s,k:'p',label:p.c+' ('+p.u+')',sub:pl(p.n,'empresa','empresas'),ll:[p.y,p.x],ref:p.el})});
- D.om.forEach(function(o){var s=nz(o.c+' '+o.d+' '+o.r).indexOf(n);if(s>=0)r.push({s:s+.5,k:'o',label:o.c+' – OM',sub:o.r+' · '+o.d.split(';')[0],ll:[o.y,o.x],ref:o.el})});
+ D.om.forEach(function(o){var s=nz(o.c+' '+o.d+' '+o.r).indexOf(n);if(s>=0)r.push({s:s+.5,k:'o',label:o.c+' – OM',sub:o.r+' · '+nomes(o),ll:[o.y,o.x],ref:o.el})});
  var dq=n.replace(/\D/g,'');
  EMP.forEach(function(e){var s=e.n.indexOf(n);if(s<0&&dq.length>=5&&e.d.indexOf(dq)>=0)s=0;if(s>=0)r.push({s:s-.2,k:'e',label:e.x[0],sub:e.p.c+' ('+e.p.u+')'+(e.x[2]?' · '+e.x[2]:''),ll:[e.p.y,e.p.x],ref:e.p.el,emp:e.x[1]})});
  r.sort(function(a,b){return a.s-b.s});r=r.slice(0,10);
