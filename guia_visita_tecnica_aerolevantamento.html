@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guia de visita técnica a empresas de aerolevantamento</title>
+<style>
+:root{color-scheme:light;--navy:#0B3A6F;--blue:#1D5FA8;--org:#C2410C;--tea:#0A7F61;--ink:#0F172A;--mut:#475569;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 90px)}
+body{margin:0;background:#F4F8FF;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--navy);z-index:10}
+.w{max-width:1200px;margin:0 auto;padding:0 16px}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:28px 0 22px}
+.hero h1{margin:0 0 6px;font-size:26px;line-height:1.2}
+.hero p{margin:0;font-size:15px;opacity:.9}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--navy);color:#fff;padding:10px 0;box-shadow:0 2px 8px rgba(11,58,111,.25)}
+.bar .w{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.pg{flex:1 1 220px}
+.pg small{display:block;font-size:12px;margin-bottom:4px}
+.tr{height:10px;border-radius:99px;background:rgba(255,255,255,.25);overflow:hidden}
+.fl{height:100%;width:0;background:#FBBF24;border-radius:99px;transition:width .25s}
+.ctl{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.ctl span{font-size:12px}
+button{font:inherit;font-size:13px;font-weight:600;padding:5px 12px;border-radius:99px;border:1.5px solid rgba(255,255,255,.7);background:transparent;color:#fff;cursor:pointer}
+button.on{background:#fff;color:var(--navy);border-color:#fff}
+.ph{display:flex;align-items:center;gap:12px;margin:28px 0 14px;padding:14px 16px;border-radius:12px;color:#fff}
+.ph.a{background:var(--navy)}.ph.d{background:var(--org)}
+.ph .ic{font-size:26px}.ph b{display:block;font-size:19px}.ph small{font-size:13px;opacity:.92}
+.st{background:#fff;border:1.5px solid #CBD5E1;border-radius:14px;padding:14px 16px;margin:0 0 12px;break-inside:avoid}
+.st.done{border-color:var(--tea);background:#F0FDF8}
+.hd{display:flex;gap:12px;align-items:center;margin-bottom:6px}
+.n{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700}
+.a .n{background:var(--navy)}.d .n{background:var(--org)}.st.done .n{background:var(--tea)}
+.hd h3{margin:0;font-size:16px}
+ul{list-style:none;margin:0;padding:0}
+li[hidden]{display:none}
+label{display:flex;align-items:center;gap:10px;padding:8px 6px;border-radius:8px;cursor:pointer;font-size:15px}
+label:hover{background:#EEF4FF}
+input{flex:none;width:20px;height:20px;accent-color:var(--tea)}
+input:checked+span{text-decoration:line-through;color:var(--mut)}
+.tg{margin-left:auto;flex:none;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px}
+.tg.trip{background:#D1FAE5;color:#064D3B}.tg.rpa{background:#FFEDD5;color:#7C2D12}
+.ft{margin:24px 0 32px;font-size:12px;color:var(--mut)}
+button.ex{background:#FBBF24;color:var(--navy);border-color:#FBBF24}
+textarea{display:block;width:100%;margin-top:8px;padding:8px 10px;border:1.5px dashed #94A3B8;border-radius:8px;font:inherit;font-size:14px;resize:vertical;background:#F8FAFF;color:var(--ink)}
+textarea:focus{outline:2px solid var(--blue);border-style:solid;background:#fff}
+.meta{display:grid;grid-template-columns:2fr 1fr 2fr;gap:10px;margin:18px auto 0}
+.f span{display:block;font-size:12px;font-weight:700;color:var(--navy);margin-bottom:3px}
+.f input{width:100%;height:auto;padding:8px 10px;border:1.5px solid #CBD5E1;border-radius:8px;font:inherit;background:#fff}
+@media(max-width:640px){.meta{grid-template-columns:1fr}}
+@media print{.bar,body::before{display:none}.hero{color:#000;background:#fff;padding:0 0 8px}.hero h1{color:var(--navy)}.ph,.n{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="w"><h1>Guia de visita técnica a empresas de aerolevantamento</h1><p>Passo a passo de verificação: antes e durante a visita</p></div></header>
+<div class="bar"><div class="w">
+<div class="pg"><small id="pt">0 de 0 itens · 0%</small><div class="tr"><div class="fl" id="fl"></div></div></div>
+<div class="ctl"><span>Aeronave:</span><button class="on" data-m="all">Todas</button><button data-m="trip">Tripulada</button><button data-m="rpa">RPA</button><button id="rs">Limpar tudo</button><button id="ex" class="ex">Exportar relatório</button></div>
+</div></div>
+<div class="w meta">
+<div class="f"><span>Empresa visitada</span><input data-mk="emp" placeholder="Razão social"></div>
+<div class="f"><span>Data da visita</span><input data-mk="data" type="date"></div>
+<div class="f"><span>Equipe / responsável</span><input data-mk="eq" placeholder="Nomes"></div>
+</div>
+<main class="w" id="app"></main>
+<div class="w"><p class="ft">Marque os itens conforme avança. O progresso fica salvo neste navegador. O filtro de aeronave oculta os itens que não se aplicam ao tipo escolhido.</p></div>
+<script>
+var T='trip',R='rpa';
+var D=[
+{c:'a',ic:'🗂️',t:'Antes da visita',s:'Conferência documental no SisCLATEN',st:[
+{t:'Conferir a documentação do cadastro no SisCLATEN',i:[['Registro no CNPJ'],['Contrato Social'],['Certidão do CREA'],['Outros']]},
+{t:'Verificar os itens da documentação da entidade',i:[['CNPJ'],['Razão Social'],['Quadro Societário'],['Porte da entidade']]},
+{t:'Conferir os Recursos Humanos no SisCLATEN',i:[['Responsável Técnico: Certidão de Registro Profissional no CREA'],['Pilotos',[T]],['Operadores de Equipamentos Especiais',[T]],['Operadores de RPA',[R]]]},
+{t:'Conferir os Recursos Materiais no SisCLATEN',i:[['Registro da aeronave na ANAC',[T,R]],['Registro da aeronave na ANATEL',[R]],['SEGVOO-01',[T]],['Laudo de Adequabilidade',[R]]]},
+{t:'Revisar os projetos executados na vigência da inscrição',i:[['Projetos concluídos no SisCLATEN'],['Projetos em andamento no SisCLATEN'],['Houve projetos cancelados?'],['Áreas aerolevantadas pela empresa no território nacional']]}
+]},
+{c:'d',ic:'🔍',t:'Durante a visita',s:'Inspeção presencial na empresa',st:[
+{t:'Acompanhar a apresentação da empresa',i:[['Situação atual da entidade'],['Foco dos serviços prestados'],['Quantidade de projetos realizados'],['Projetos em andamento'],['Projetos futuros'],['Clientes atendidos'],['Parceiros da entidade (serviços terceirizados)'],['Outros']]},
+{t:'Visitar as instalações',i:[['Segurança na entrada do local'],['Estado físico das instalações e equipamentos'],['Local de processamento das imagens'],['Tipos de computadores e equipamentos de processamento'],['Câmeras internas de segurança'],['Local de guarda dos originais de aerolevantamento'],['Itens de segurança para a guarda dos originais']]},
+{t:'Verificar as aeronaves aprovadas para aerolevantamento',i:[['Documentação das aeronaves e sua validade'],['Estado físico dos equipamentos'],['Local de hangaragem das aeronaves',[T]],['Local de guarda das aeronaves remotamente pilotadas',[R]]]}
+]}];
+var L={trip:'Tripulada',rpa:'RPA'},S={},M='all',h='';
+try{S=JSON.parse(localStorage.getItem('vt')||'{}')}catch(e){S={}}
+function save(){try{localStorage.setItem('vt',JSON.stringify(S))}catch(e){}}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+D.forEach(function(p,pi){
+h+='<section class="'+p.c+'"><div class="ph '+p.c+'"><span class="ic">'+p.ic+'</span><div><b>'+p.t+'</b><small>'+p.st.length+' etapas · '+p.s+'</small></div></div>';
+p.st.forEach(function(s,si){
+h+='<div class="st"><div class="hd"><span class="n">'+(si+1)+'</span><h3>'+s.t+'</h3></div><ul>';
+s.i.forEach(function(it,ii){
+var k=pi+'-'+si+'-'+ii,g=it[1]||[];
+h+='<li data-g="'+g.join(' ')+'"><label><input type="checkbox" data-k="'+k+'"'+(S[k]?' checked':'')+'><span>'+it[0]+'</span>'+g.map(function(x){return '<em class="tg '+x+'" style="font-style:normal">'+L[x]+'</em>'}).join('')+'</label></li>';
+});
+h+='</ul><textarea data-nk="'+pi+'-'+si+'" rows="2" placeholder="Observações desta etapa…">'+esc(S['n'+pi+'-'+si]||'')+'</textarea></div>';
+});
+h+='</section>';
+});
+document.getElementById('app').innerHTML=h;
+function upd(){
+var tot=0,ok=0;
+document.querySelectorAll('li').forEach(function(li){
+var g=li.getAttribute('data-g');
+li.hidden=(M!=='all'&&g&&g.split(' ').indexOf(M)<0);
+if(!li.hidden){tot++;if(li.querySelector('input').checked)ok++}
+});
+document.querySelectorAll('.st').forEach(function(c,i){
+var v=[].filter.call(c.querySelectorAll('li'),function(l){return !l.hidden});
+var d=v.length>0&&v.every(function(l){return l.querySelector('input').checked});
+c.classList.toggle('done',d);
+c.querySelector('.n').textContent=d?'✓':c.querySelector('.n').getAttribute('data-n');
+});
+var p=tot?Math.round(ok*100/tot):0;
+document.getElementById('fl').style.width=p+'%';
+document.getElementById('pt').textContent=ok+' de '+tot+' itens · '+p+'%';
+}
+document.querySelectorAll('section').forEach(function(s){s.querySelectorAll('.n').forEach(function(n,i){n.setAttribute('data-n',i+1)})});
+document.getElementById('app').addEventListener('change',function(e){
+var k=e.target.getAttribute('data-k');if(!k)return;
+if(e.target.checked)S[k]=1;else delete S[k];
+save();upd();
+});
+document.getElementById('app').addEventListener('input',function(e){
+var k=e.target.getAttribute('data-nk');if(k===null)return;
+S['n'+k]=e.target.value;save();
+});
+document.querySelectorAll('.f input').forEach(function(i){
+var k='m-'+i.getAttribute('data-mk');
+i.value=S[k]||'';
+i.addEventListener('input',function(){S[k]=i.value;save()});
+});
+document.getElementById('ex').addEventListener('click',function(){
+var q=function(k){return esc(S['m-'+k]||'—')};
+var dt=S['m-data']?S['m-data'].split('-').reverse().join('/'):'—';
+var tot=0,ok=0,b='';
+D.forEach(function(p,pi){
+b+='<h2>'+p.t+'</h2>';
+p.st.forEach(function(s,si){
+b+='<h3>'+(si+1)+'. '+s.t+'</h3><ul>';
+s.i.forEach(function(it,ii){
+var g=it[1]||[];
+if(M!=='all'&&g.length&&g.indexOf(M)<0)return;
+var c=S[pi+'-'+si+'-'+ii];tot++;if(c)ok++;
+b+='<li class="'+(c?'ok':'no')+'">'+(c?'☑':'☐')+' '+esc(it[0])+g.map(function(x){return ' <i>['+L[x]+']</i>'}).join('')+'</li>';
+});
+var n=S['n'+pi+'-'+si];
+b+='</ul><div class="ob"><b>Observações:</b> '+(n?esc(n).replace(/\n/g,'<br>'):'<span>sem registro</span>')+'</div>';
+});
+});
+var css='body{font-family:system-ui,Arial,sans-serif;max-width:800px;margin:24px auto;padding:0 16px;color:#0F172A;line-height:1.5}h1{color:#0B3A6F;font-size:22px;margin:0 0 4px}h2{background:#0B3A6F;color:#fff;padding:6px 12px;border-radius:6px;font-size:16px;margin:24px 0 8px}h3{font-size:15px;margin:14px 0 4px;color:#0B3A6F}ul{list-style:none;padding:0;margin:0}li{padding:2px 0}li.ok{color:#064D3B}li.no{color:#7C2D12}.ob{border:1px solid #CBD5E1;border-radius:6px;padding:6px 10px;margin:6px 0;font-size:14px}.ob span{color:#64748B}.m{border:1px solid #CBD5E1;border-radius:8px;padding:10px 14px;margin:12px 0}small{color:#64748B}@media print{h2{-webkit-print-color-adjust:exact;print-color-adjust:exact}}';
+var html='<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Relatório de visita técnica</title><style>'+css+'</style></head><body><h1>Relatório de visita técnica</h1><small>Aerolevantamento · gerado em '+new Date().toLocaleString('pt-BR')+'</small><div class="m"><div><b>Empresa visitada:</b> '+q('emp')+'</div><div><b>Data da visita:</b> '+dt+'</div><div><b>Equipe/responsável:</b> '+q('eq')+'</div><div><b>Aeronaves consideradas:</b> '+(M==='all'?'Todas':L[M])+'</div><div><b>Itens conferidos:</b> '+ok+' de '+tot+'</div></div>'+b+'</body></html>';
+var nm=(S['m-emp']||'empresa').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+var a=document.createElement('a');
+a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));
+a.download='relatorio-visita-'+(nm||'empresa')+(S['m-data']?'-'+S['m-data']:'')+'.html';
+document.body.appendChild(a);a.click();a.remove();
+});
+document.querySelectorAll('button[data-m]').forEach(function(b){
+b.addEventListener('click',function(){
+M=b.getAttribute('data-m');
+document.querySelectorAll('button[data-m]').forEach(function(x){x.classList.toggle('on',x===b)});
+upd();
+});
+});
+document.getElementById('rs').addEventListener('click',function(){
+S={};save();
+document.querySelectorAll('textarea,.f input').forEach(function(t){t.value=''});
+document.querySelectorAll('input[data-k]').forEach(function(i){i.checked=false});
+upd();
+});
+upd();
+</script>
+</body>
+</html>
