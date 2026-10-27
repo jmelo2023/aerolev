@@ -107,12 +107,23 @@ path.p.sel{fill-opacity:1;stroke:var(--ink);stroke-width:3}
 #card.dragged{width:275px}
 @media (max-width:700px){#card.dragged{width:min(275px,calc(100% - 16px));max-height:70%}}
 #card .oml li{display:block;padding:5px 0}#card .oml li span{display:block;font-weight:600;font-size:.76rem;line-height:1.25}#card .oml li small{display:block;color:var(--mute);font-size:.68rem;margin-top:1px}
+/* ===== Menu de links (recolhe/expande) ===== */
+#lk{position:absolute;left:10px;bottom:10px;z-index:1100;font-size:.8rem}
+#lk>button{display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:6px 11px;cursor:pointer;font:inherit;box-shadow:var(--shadow)}
+#lk>button:hover,#lk>button:focus-visible{border-color:var(--pin);outline:none}
+#lk .ar{display:inline-block;font-size:.65rem;transition:transform .15s}
+#lk.open .ar{transform:rotate(180deg)}
+#lk ul{display:none;list-style:none;margin:0 0 6px;padding:4px;min-width:200px;background:var(--panel);border:1px solid var(--grid);border-radius:10px;box-shadow:var(--shadow)}
+#lk.open ul{display:block}
+#lk li a{display:block;padding:7px 10px;border-radius:6px;color:var(--ink);text-decoration:none}
+#lk li a:hover,#lk li a:focus-visible{background:var(--grid);outline:none}
 </style></head>
 <body>
 <header><h1>Empresas de aerolevantamento inscritas – Categoria A</h1>
 <div class="chips"><span><i class="lc"></i>Empresas (tamanho = nº)</span><span><i class="lg"></i>Organização militar (amostra)</span><span>Relação de 31/08/2026</span><span>Clique em um ponto para ver as empresas · roda/botões para zoom · arraste para mover</span></div></header>
 <div class="map" id="m"><div id="lm"></div><div id="card" role="dialog" aria-live="polite"></div>
 <div class="zb"><button id="zi" aria-label="Aproximar">+</button><button id="zo" aria-label="Afastar">−</button><button id="zr" aria-label="Restaurar">⟲</button></div>
+<div id="lk"><ul id="lkl"></ul><button id="lkb" type="button" aria-expanded="false" aria-controls="lkl"><span>Links</span><span class="ar">▲</span></button></div>
 <div id="sp"><div class="f"><input id="q" type="search" placeholder="Buscar empresa, CNPJ, município, estado ou endereço…" autocomplete="off" aria-label="Pesquisar"><button id="rb" title="Rotas" aria-label="Abrir rotas">🧭</button><div class="dd" id="qd"></div></div><div id="chip"></div>
 <div id="rt" hidden><label>Origem</label><div class="f"><input id="o" placeholder="Cidade, unidade ou endereço" autocomplete="off"><button id="gl" title="Minha localização" aria-label="Usar minha localização">📍</button><div class="dd" id="od"></div></div>
 <label>Destino</label><div class="f"><input id="d" placeholder="Cidade, unidade ou endereço" autocomplete="off"><button id="sw" title="Inverter" aria-label="Inverter origem e destino">⇅</button><div class="dd" id="dd"></div></div>
@@ -383,6 +394,18 @@ function nearRt(){
   +'<div class="sec2">'+pl(ne,'empresa','empresas')+' em '+pl(res.length,'município','municípios')+' a até '+R+' km da rota</div>'
   +'<div class="rl">'+res.map(function(r,i){return '<button class="tp" data-i="'+i+'"><span>'+esc(r.p.c)+' ('+r.p.u+')</span><em>'+r.p.n+' · '+Math.round(r.d)+' km</em></button>'}).join('')+'</div>');
  render()}
+
+/* ===== Menu de links (canto inferior esquerdo) — edite apenas LINKS ===== */
+var LINKS=[
+ {t:'SisCLATEN',u:'https://sisclaten.defesa.gov.br/login'},
+ {t:'Fluxograma',u:'https://jmelo2023.github.io/aerolev/fluxograma.html'},
+];
+(function(){var m=$('lk'),b=$('lkb'),l=$('lkl');
+ l.innerHTML=LINKS.map(function(k){return '<li><a href="'+esc(k.u)+'" target="_blank" rel="noopener noreferrer">'+esc(k.t)+'</a></li>'}).join('');
+ function tg(o){m.classList.toggle('open',o);b.setAttribute('aria-expanded',o?'true':'false')}
+ b.addEventListener('click',function(){tg(!m.classList.contains('open'))});
+ document.addEventListener('keydown',function(e){if(e.key=='Escape')tg(false)});
+ map.on('click',function(){tg(false)})})();
 
 render();
 </script></body></html>
