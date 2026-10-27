@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fluxo de tratamento de denúncias de aerolevantamento</title>
+<style>
+:root{--bg:#fff;--fg:#0F172A;--mut:#334155;--line:#1E3A5F;--card:#EAF2FF;
+--gf:#0B3A6F;--gs:#082A52;--gt:#fff;--gt2:#DBEAFE;
+--tf:#0A7F61;--ts:#064D3B;--tt:#fff;--tt2:#D1FAE5;
+--cf:#C2410C;--cs:#7C2D12;--ct:#fff;--ct2:#FFEDD5;
+color-scheme:light;box-sizing:border-box;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1200px;margin:0 auto;padding:20px 16px 32px}
+h1{font-size:22px;font-weight:700;margin:0 0 4px;color:#0B3A6F}
+p.sub{margin:0 0 12px;color:var(--mut);font-size:14px}
+button{font:inherit;font-size:13px;font-weight:500;padding:6px 12px;border:0;background:#0B3A6F;color:#fff;border-radius:6px;cursor:pointer}
+svg{width:100%;height:auto;display:block;margin-top:12px}
+svg text{fill:var(--fg);font-family:inherit}
+.t{font-size:14px}.th{font-size:14px;font-weight:500}.ts{font-size:12px;font-weight:500;fill:var(--mut)}
+.box{fill:var(--card);stroke:var(--line);stroke-width:1.2}polygon.box{fill:#FFF1B8;stroke:#B45309;stroke-width:1.5}
+.arr{stroke:var(--line);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.leader{stroke:#94A3B8;stroke-width:1;stroke-dasharray:4 4}
+.c-gray>rect,rect.c-gray{fill:var(--gf);stroke:var(--gs);stroke-width:1.5}
+.c-gray .th,.c-gray .t{fill:var(--gt)}
+.c-teal>rect,.c-teal>polygon,rect.c-teal{fill:var(--tf);stroke:var(--ts);stroke-width:1.5}
+.c-teal .th,.c-teal .t{fill:var(--tt)}.c-teal .ts{fill:var(--tt2)}
+.c-coral>rect,.c-coral>polygon,rect.c-coral{fill:var(--cf);stroke:var(--cs);stroke-width:1.5}
+.c-coral .th,.c-coral .t{fill:var(--ct)}.c-coral .ts{fill:var(--ct2)}
+.res{margin-top:28px}.res h2{font-size:19px;font-weight:700;margin:0 0 12px;color:#0B3A6F}.res article{border:2px solid var(--line);background:var(--card);border-radius:10px;padding:12px 16px;margin:0 0 12px}.res article.ra{border-color:var(--ts);background:#E3F7EF}.res article.rb{border-color:var(--cs);background:#FFEEE2}.res h3{font-size:15px;font-weight:700;margin:0 0 6px;color:#0B3A6F}.res article.ra h3{color:#064D3B}.res article.rb h3{color:#7C2D12}.res ul{margin:0;padding-left:18px;font-size:14px;line-height:1.55}.res li{margin:3px 0}.res p.base{font-size:12px;color:var(--mut);margin:8px 0 0}.res .mod{white-space:pre-wrap;font-size:13px;line-height:1.55;margin:8px 0 0;padding:10px 12px;background:var(--bg);border:1px solid var(--line);border-radius:8px}.res article h3{display:flex;justify-content:space-between;align-items:center;gap:8px}
+@media print{.res{break-before:page}.res article{break-inside:avoid}button{display:none}:root{--bg:#fff}body{background:#fff}main{padding:0}svg{max-height:270mm;margin:0 auto;width:auto}@page{margin:10mm}}
+</style>
+</head>
+<body>
+<main>
+<h1>Tratamento de denúncias de aerolevantamento</h1>
+<p class="sub">Procedimento operacional · do recebimento ao arquivamento no SEI</p>
+<button onclick="window.print()">Imprimir / salvar PDF</button>
+<svg viewBox="0 0 680 1216" role="img"><title>Fluxo de tratamento de denúncias de aerolevantamento</title><desc>Quatro fases: triagem, checagem no SisCLATEN, tratamento (rota A para entidade inscrita, rota B para não inscrita) e conclusão.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<line class="leader" x1="20" y1="332" x2="660" y2="332"/>
+<line class="leader" x1="20" y1="512" x2="660" y2="512"/>
+<line class="leader" x1="20" y1="928" x2="660" y2="928"/>
+<text class="ts" x="20" y="48">1 · Triagem</text>
+<text class="ts" x="20" y="350">2 · Checagem</text>
+<text class="ts" x="20" y="530">3 · Tratamento</text>
+<text class="ts" x="20" y="946">4 · Conclusão</text>
+
+<g class="c-gray"><rect x="250" y="36" width="180" height="32" rx="16" stroke-width="0.5"/><text class="th" x="340" y="52" text-anchor="middle" dominant-baseline="central">Denúncia recebida</text></g>
+<line class="arr" x1="340" y1="68" x2="340" y2="91" marker-end="url(#arrow)"/>
+<polygon class="box" points="340,92 410,122 340,152 270,122"/>
+<text class="t" x="340" y="122" text-anchor="middle" dominant-baseline="central">Identificada?</text>
+<line class="arr" x1="410" y1="122" x2="453" y2="122" marker-end="url(#arrow)"/>
+<text class="ts" x="432" y="112" text-anchor="middle">Não</text>
+<polygon class="box" points="540,92 625,122 540,152 455,122"/>
+<text class="t" x="540" y="122" text-anchor="middle" dominant-baseline="central">Indícios mínimos?</text>
+<line class="arr" x1="540" y1="91" x2="540" y2="70" marker-end="url(#arrow)"/>
+<text class="ts" x="547" y="81">Não</text>
+<g class="c-gray"><rect x="450" y="36" width="180" height="32" rx="16" stroke-width="0.5"/><text class="th" x="540" y="52" text-anchor="middle" dominant-baseline="central">Justificar e arquivar</text></g>
+<line class="arr" x1="340" y1="152" x2="340" y2="181" marker-end="url(#arrow)"/>
+<text class="ts" x="347" y="170">Sim</text>
+<rect class="box" x="252" y="182" width="176" height="40" rx="8"/>
+<text class="th" x="340" y="202" text-anchor="middle" dominant-baseline="central">Autuar no SEI (NUP)</text>
+<line class="arr" x1="540" y1="152" x2="540" y2="181" marker-end="url(#arrow)"/>
+<text class="ts" x="547" y="170">Sim</text>
+<rect class="box" x="460" y="182" width="160" height="40" rx="8"/>
+<text class="th" x="540" y="202" text-anchor="middle" dominant-baseline="central">Abrir verificação</text>
+<line class="arr" x1="340" y1="222" x2="340" y2="261" marker-end="url(#arrow)"/>
+<path class="arr" d="M540 222 V242 H340"/>
+<polygon class="box" points="340,262 415,292 340,322 265,292"/>
+<text class="t" x="340" y="292" text-anchor="middle" dominant-baseline="central">Compete ao MD?</text>
+<line class="arr" x1="265" y1="292" x2="217" y2="292" marker-end="url(#arrow)"/>
+<text class="ts" x="241" y="283" text-anchor="middle">Não</text>
+<g class="c-gray"><rect x="40" y="276" width="175" height="32" rx="16" stroke-width="0.5"/><text class="th" x="127" y="292" text-anchor="middle" dominant-baseline="central">Encaminhar ao órgão</text></g>
+<line class="arr" x1="340" y1="322" x2="340" y2="357" marker-end="url(#arrow)"/>
+<text class="ts" x="347" y="347">Sim</text>
+
+<rect class="box" x="235" y="358" width="210" height="56" rx="8"/>
+<text class="th" x="340" y="376" text-anchor="middle" dominant-baseline="central">Consultar SisCLATEN</text>
+<text class="ts" x="340" y="396" text-anchor="middle" dominant-baseline="central">Categoria · AAFA · dispensa</text>
+<line class="arr" x1="340" y1="414" x2="340" y2="437" marker-end="url(#arrow)"/>
+<polygon class="box" points="340,438 420,468 340,498 260,468"/>
+<text class="t" x="340" y="468" text-anchor="middle" dominant-baseline="central">Inscrita no MD?</text>
+<path class="arr" d="M260 468 H150 V552" marker-end="url(#arrow)"/>
+<text class="ts" x="205" y="458" text-anchor="middle">Sim</text>
+<path class="arr" d="M420 468 H535 V552" marker-end="url(#arrow)"/>
+<text class="ts" x="478" y="458" text-anchor="middle">Não</text>
+
+<g class="c-teal"><rect x="35" y="554" width="230" height="56" rx="8" stroke-width="0.5"/><text class="th" x="150" y="572" text-anchor="middle" dominant-baseline="central">Apurar irregularidade</text><text class="ts" x="150" y="592" text-anchor="middle" dominant-baseline="central">Avaliar abertura de PAS</text></g>
+<line class="arr" x1="150" y1="610" x2="150" y2="633" marker-end="url(#arrow)"/>
+<g class="c-teal"><rect x="35" y="634" width="230" height="56" rx="8" stroke-width="0.5"/><text class="th" x="150" y="652" text-anchor="middle" dominant-baseline="central">Notificar a entidade</text><text class="ts" x="150" y="672" text-anchor="middle" dominant-baseline="central">Defesa em 30 dias úteis</text></g>
+<line class="arr" x1="150" y1="690" x2="150" y2="713" marker-end="url(#arrow)"/>
+<g class="c-teal"><polygon points="150,714 220,744 150,774 80,744" stroke-width="0.5"/><text class="t" x="150" y="744" text-anchor="middle" dominant-baseline="central">Confirmada?</text></g>
+<line class="arr" x1="150" y1="774" x2="150" y2="801" marker-end="url(#arrow)"/>
+<text class="ts" x="157" y="792">Sim</text>
+<g class="c-teal"><rect x="35" y="802" width="230" height="56" rx="8" stroke-width="0.5"/><text class="th" x="150" y="820" text-anchor="middle" dominant-baseline="central">Aplicar sanção</text><text class="ts" x="150" y="840" text-anchor="middle" dominant-baseline="central">Advertência a cassação</text></g>
+<line class="arr" x1="220" y1="744" x2="257" y2="744" marker-end="url(#arrow)"/>
+<text class="ts" x="238" y="735" text-anchor="middle">Não</text>
+<g class="c-teal"><rect x="260" y="716" width="110" height="56" rx="8" stroke-width="0.5"/><text class="th" x="315" y="734" text-anchor="middle" dominant-baseline="central">Sem sanção</text><text class="ts" x="315" y="754" text-anchor="middle" dominant-baseline="central">Fundamentar</text></g>
+
+<g class="c-coral"><rect x="425" y="554" width="220" height="56" rx="8" stroke-width="0.5"/><text class="th" x="535" y="572" text-anchor="middle" dominant-baseline="central">Notificar operador</text><text class="ts" x="535" y="592" text-anchor="middle" dominant-baseline="central">Esclarecer ou regularizar</text></g>
+<line class="arr" x1="535" y1="610" x2="535" y2="633" marker-end="url(#arrow)"/>
+<g class="c-coral"><rect x="425" y="634" width="220" height="56" rx="8" stroke-width="0.5"/><text class="th" x="535" y="652" text-anchor="middle" dominant-baseline="central">Registrar no SEI</text><text class="ts" x="535" y="672" text-anchor="middle" dominant-baseline="central">Aguardar resposta</text></g>
+<line class="arr" x1="535" y1="690" x2="535" y2="713" marker-end="url(#arrow)"/>
+<g class="c-coral"><polygon points="535,714 623,744 535,774 447,744" stroke-width="0.5"/><text class="t" x="535" y="744" text-anchor="middle" dominant-baseline="central">Infração externa?</text></g>
+<line class="arr" x1="535" y1="774" x2="535" y2="801" marker-end="url(#arrow)"/>
+<text class="ts" x="542" y="792">Sim</text>
+<g class="c-coral"><rect x="425" y="802" width="220" height="56" rx="8" stroke-width="0.5"/><text class="th" x="535" y="820" text-anchor="middle" dominant-baseline="central">Oficiar órgão competente</text><text class="ts" x="535" y="840" text-anchor="middle" dominant-baseline="central">MPF/PF · ANAC · DECEA · CREA</text></g>
+<path class="arr" d="M623 744 H652 V911 H535"/>
+<text class="ts" x="638" y="735" text-anchor="middle">Não</text>
+
+<path class="arr" d="M150 858 V911 H340 V946" marker-end="url(#arrow)"/>
+<path class="arr" d="M535 858 V911 H340"/>
+<path class="arr" d="M315 772 V911"/>
+
+<polygon class="box" points="340,948 410,978 340,1008 270,978"/>
+<text class="t" x="340" y="978" text-anchor="middle" dominant-baseline="central">Identificada?</text>
+<line class="arr" x1="270" y1="978" x2="236" y2="978" marker-end="url(#arrow)"/>
+<text class="ts" x="253" y="968" text-anchor="middle">Sim</text>
+<rect class="box" x="30" y="950" width="203" height="56" rx="8"/>
+<text class="th" x="131" y="968" text-anchor="middle" dominant-baseline="central">Responder formalmente</text>
+<text class="ts" x="131" y="988" text-anchor="middle" dominant-baseline="central">Fala.BR ou SEI</text>
+<line class="arr" x1="410" y1="978" x2="444" y2="978" marker-end="url(#arrow)"/>
+<text class="ts" x="427" y="968" text-anchor="middle">Não</text>
+<rect class="box" x="447" y="950" width="193" height="56" rx="8"/>
+<text class="th" x="543" y="968" text-anchor="middle" dominant-baseline="central">Registrar conclusão</text>
+<text class="ts" x="543" y="988" text-anchor="middle" dominant-baseline="central">Sem resposta individual</text>
+<path class="arr" d="M131 1006 V1036 H340"/>
+<path class="arr" d="M543 1006 V1036 H340"/>
+<line class="arr" x1="340" y1="1036" x2="340" y2="1057" marker-end="url(#arrow)"/>
+<rect class="box" x="215" y="1058" width="250" height="40" rx="8"/>
+<text class="th" x="340" y="1078" text-anchor="middle" dominant-baseline="central">Verificar proteção de dados</text>
+<line class="arr" x1="340" y1="1098" x2="340" y2="1121" marker-end="url(#arrow)"/>
+<g class="c-gray"><rect x="240" y="1122" width="200" height="36" rx="18" stroke-width="0.5"/><text class="th" x="340" y="1140" text-anchor="middle" dominant-baseline="central">Concluir e arquivar</text></g>
+
+<rect class="c-teal" x="40" y="1180" width="14" height="14" rx="3" stroke-width="0.5"/>
+<text class="ts" x="62" y="1188" dominant-baseline="central">Rota A · entidade inscrita (PAS)</text>
+<rect class="c-coral" x="320" y="1180" width="14" height="14" rx="3" stroke-width="0.5"/>
+<text class="ts" x="342" y="1188" dominant-baseline="central">Rota B · não inscrita (externo)</text>
+</svg>
+<section class="res">
+<h2>Resumo do tratamento por etapa</h2>
+<article>
+<h3>1 · Triagem</h3>
+<ul>
+<li>Identificar o canal, os fatos, o denunciante e os anexos.</li>
+<li>Denúncia identificada: autuar no SEI (gerar NUP), apurar e dar resposta conclusiva ao denunciante.</li>
+<li>Denúncia anônima com indícios mínimos plausíveis (links, fotos, coordenadas): abrir expediente de verificação ou remeter ao órgão externo. Sem indícios: registrar a análise e justificar o não prosseguimento. Não há dever de resposta.</li>
+<li>Juntar provas e documentos. Se o assunto não for de competência do MD, encaminhar ao órgão competente e registrar; se for, seguir para o SisCLATEN.</li>
+</ul>
+</article>
+<article>
+<h3>2 · Checagem no SisCLATEN</h3>
+<ul>
+<li>Consultar a entidade denunciada: inscrição, categoria (A, B ou C), AAFA válida ou dispensa prevista no art. 38 da Portaria GM-MD nº 3.703/2021.</li>
+<li>Registrar a consulta no SEI. O resultado define a rota: inscrita (A) ou não inscrita (B).</li>
+</ul>
+</article>
+<article class="ra">
+<h3>3A · Entidade inscrita: Processo Administrativo Sancionatório</h3>
+<ul>
+<li>Apurar a irregularidade e avaliar a instauração do PAS (Capítulo IX da Portaria).</li>
+<li>Notificar a entidade e assegurar contraditório e ampla defesa: 30 dias úteis para providências ou defesa.</li>
+<li>Irregularidade confirmada: a CHELOG aplica sanção proporcional. Advertência por escrito para falta leve; suspensão de 30 a 90 dias para serviço sem AAFA válida ou reincidência; cassação para infração gravíssima ou inadimplemento continuado.</li>
+<li>Recursos: 15 dias úteis ao Chefe do EMCFA (1ª instância) e 8 dias úteis ao Ministro da Defesa (2ª instância).</li>
+<li>Atividade regular ou irregularidade não confirmada: fundamentar a conclusão sem sanção.</li>
+</ul>
+</article>
+<article class="rb">
+<h3>3B · Entidade não inscrita: notificação e encaminhamento externo</h3>
+<ul>
+<li>O MD não tem poder sancionador sobre não inscritos. Eles e seus contratantes respondem civil e penalmente (art. 72 da Portaria).</li>
+<li>Reunir indícios, identificar o operador e notificá-lo para esclarecer, interromper a atividade e iniciar a inscrição. Registrar a resposta no SEI.</li>
+<li>Havendo infração de competência externa, preparar ofício com as provas anexas, registrar no SEI e enviar ao destino conforme a natureza:</li>
+<li>MPF/PF: ilícito penal, ameaça à segurança, área restrita ou contratação pública irregular. ANAC: aeronave ou drone sem registro, ou serviço aéreo sem outorga. DECEA: voo sem autorização de acesso ao espaço aéreo. CREA: falta de responsável técnico ou de ART.</li>
+<li>Irregularidade apenas cadastral ou de AAFA perante o MD segue para providências internas. Controlar o retorno do órgão quando necessário.</li>
+</ul>
+</article>
+<article>
+<h3>4 · Conclusão e arquivamento</h3>
+<ul>
+<li>Acompanhar pendências, controlar prazos e juntar as respostas recebidas.</li>
+<li>Preparar a informação ou o despacho conclusivo.</li>
+<li>Denunciante identificado: responder formalmente pelo Fala.BR ou SEI, com o parecer final ou o número do ofício de encaminhamento. Denunciante anônimo: registrar a conclusão sem resposta individual.</li>
+<li>Verificar a proteção de dados, as peças e os comprovantes. Concluir e arquivar o NUP no SEI, que fica disponível para auditorias e reincidências.</li>
+</ul>
+</article>
+<p class="base">Base: Decreto-Lei nº 1.177/1971, Decreto nº 2.278/1997 e Portaria GM-MD nº 3.703/2021.</p>
+</section>
+<section class="res" id="modelos">
+<h2>Modelos de resposta ao denunciante</h2>
+<p class="base" style="margin:0 0 12px">Para denúncia identificada, enviada pelo Fala.BR ou SEI. Preencher os campos entre colchetes e manter apenas a opção aplicável. Denúncia anônima não exige resposta individual.</p>
+<article class="ra">
+<h3>Rota A · entidade inscrita <button onclick="cp('ma',this)">Copiar texto</button></h3>
+<div class="mod" id="ma">Assunto: Resposta à manifestação – NUP [número]
+
+Prezado(a) Senhor(a) [nome do denunciante],
+
+Em atenção à manifestação registrada sob o NUP [número], recebida em [data] pelo canal [Fala.BR/SEI], informamos as providências adotadas pelo Ministério da Defesa.
+
+1. Verificação cadastral: a consulta ao SisCLATEN indicou que a entidade [razão social] encontra-se inscrita na Categoria [A/B/C] e que o projeto em questão [possui/não possui] Autorização de Aerolevantamento na Fase Aeroespacial (AAFA) válida ou dispensa aplicável.
+
+2. Providências: foi instaurado Processo Administrativo Sancionatório, nos termos do Capítulo IX da Portaria GM-MD nº 3.703/2021, com notificação da entidade e garantia de contraditório e ampla defesa.
+
+3. Resultado (manter apenas uma opção):
+[Opção 1 – irregularidade confirmada] Foi aplicada à entidade a sanção de [advertência/suspensão/cassação de inscrição], na forma da Portaria.
+[Opção 2 – irregularidade não confirmada] A apuração concluiu pela regularidade da atividade, pelos fundamentos constantes do processo.
+[Opção 3 – em andamento] O processo segue em apuração e o denunciante será informado da conclusão.
+
+Esclarecemos que a atuação do Ministério da Defesa restringe-se ao controle cadastral e administrativo das entidades inscritas. Dados pessoais e informações de acesso restrito foram resguardados no processo.
+
+Atenciosamente,
+[nome, cargo e unidade]</div>
+</article>
+<article class="rb">
+<h3>Rota B · entidade não inscrita <button onclick="cp('mb',this)">Copiar texto</button></h3>
+<div class="mod" id="mb">Assunto: Resposta à manifestação – NUP [número]
+
+Prezado(a) Senhor(a) [nome do denunciante],
+
+Em atenção à manifestação registrada sob o NUP [número], recebida em [data] pelo canal [Fala.BR/SEI], informamos as providências adotadas pelo Ministério da Defesa.
+
+1. Verificação cadastral: a consulta ao SisCLATEN indicou que [pessoa física/jurídica denunciada] não possui inscrição no Ministério da Defesa.
+
+2. Competência: nos termos do art. 72 da Portaria GM-MD nº 3.703/2021, quem realiza aerolevantamento sem inscrição atua à margem da regulação e responde civil e penalmente, juntamente com seus contratantes. O Ministério da Defesa não possui poder sancionatório sobre não inscritos nem poder de polícia ostensivo.
+
+3. Providências:
+(a) o operador foi notificado, por meio do Ofício nº [número], para prestar esclarecimentos, interromper a atividade irregular e iniciar o processo de inscrição;
+(b) o fato foi encaminhado a [MPF/PF/ANAC/DECEA/CREA] pelo Ofício nº [número], de [data], por tratar de [natureza da infração], acompanhado das provas apresentadas.
+
+As demais providências cabem ao órgão destinatário do encaminhamento.
+
+Atenciosamente,
+[nome, cargo e unidade]</div>
+</article>
+</section>
+<script>
+function sel(id){var r=document.createRange();r.selectNodeContents(document.getElementById(id));var s=getSelection();s.removeAllRanges();s.addRange(r)}
+function cp(id,b){var t=document.getElementById(id).innerText;try{navigator.clipboard.writeText(t).then(function(){b.textContent='Copiado'},function(){sel(id);b.textContent='Selecionado: Ctrl+C'})}catch(e){sel(id);b.textContent='Selecionado: Ctrl+C'}}
+</script>
+</main>
+</body>
+</html>
