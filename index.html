@@ -35,7 +35,7 @@ path.p.sel{fill-opacity:1;stroke:var(--ink);stroke-width:3}
 .zb{position:absolute;left:10px;top:10px;z-index:1100;display:flex;flex-direction:column;gap:4px}
 .zb button{width:34px;height:34px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;font-size:1.1rem;cursor:pointer}
 .zb button:hover{border-color:var(--pin)}
-#card{position:absolute;display:none;z-index:1200;width:275px;max-height:calc(100% - 16px);overflow:auto;background:var(--panel);border:1px solid var(--grid);border-radius:12px;box-shadow:var(--shadow);padding:12px 14px;font-size:.8rem;line-height:1.35}
+#card{position:absolute;display:none;z-index:1200;width:375px;max-height:calc(100% - 16px);overflow:auto;background:var(--panel);border:1px solid var(--grid);border-radius:12px;box-shadow:var(--shadow);padding:12px 14px;font-size:.8rem;line-height:1.35}
 #card.pinned{border-color:var(--pin);box-shadow:0 0 0 2px color-mix(in srgb,var(--pin) 35%,transparent),var(--shadow)}
 #card .hd{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
 #card .ti{font-weight:700;font-size:.95rem}
@@ -104,7 +104,7 @@ path.p.sel{fill-opacity:1;stroke:var(--ink);stroke-width:3}
 #card .drag:active,#card.dragging .drag{cursor:grabbing}
 #card .drag i{width:26px;height:4px;border-radius:99px;background:var(--line);flex:none}
 #card.dragging{opacity:.96;box-shadow:0 14px 40px rgba(15,30,40,.35)}
-#card.dragged{width:275px}
+#card.dragged{width:375px}
 @media (max-width:700px){#card.dragged{width:min(275px,calc(100% - 16px));max-height:70%}}
 #card .oml li{display:block;padding:5px 0}#card .oml li span{display:block;font-weight:600;font-size:.76rem;line-height:1.25}#card .oml li small{display:block;color:var(--mute);font-size:.68rem;margin-top:1px}
 /* ===== Menu de links (recolhe/expande) ===== */
