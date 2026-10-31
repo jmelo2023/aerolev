@@ -147,7 +147,7 @@ function km(a,b,c,d){var r=Math.PI/180,q=Math.sin((c-a)*r/2)**2+Math.cos(a*r)*Ma
 function pl(n,a,b){return n+' '+(n==1?a:b)}
 function nomes(o){return o.d.split(';').map(function(s){return s.trim()}).join(' · ')}
 function kz(){return Math.min(2.4,.7+.12*map.getZoom())}
-function rad(p){return (4+1.6*Math.sqrt(p.n))*kz()}
+function rad(p){return (6+2.6*Math.sqrt(p.n))*kz()}
 function hitR(p){return Math.max(16,rad(p)+6)}
 function node(l){return l.getElement()}
 
