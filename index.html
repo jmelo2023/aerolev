@@ -139,7 +139,7 @@ var BR=[[-33.9,-74],[5.4,-33.8]];
 function fit(){var w=innerWidth>700;map.fitBounds(BR,{paddingTopLeft:[50,10],paddingBottomRight:[w?250:10,10]})}
 fit();
 var cs=[],os=[],lg=L.layerGroup().addTo(map);
-var ring=L.circle([0,0],{radius:50000,color:'#dc2626',weight:1.5,dashArray:'6 5',fillOpacity:.08,interactive:false});
+var ring=L.circle([0,0],{radius:100000,color:'#dc2626',weight:1.5,dashArray:'6 5',fillOpacity:.08,interactive:false});
 var pinned=null,cur=null,ufh=null,hideT=null,manual=null,openEl=null,lastDrag=0;
 var ufTot={};D.uf.forEach(function(u){ufTot[u[0]]=u[1]});
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
@@ -162,9 +162,9 @@ D.pts.forEach(function(p){
 D.om.forEach(function(o){
  var e=L.marker([o.y,o.x],{icon:L.divIcon({className:'omi',iconSize:[18,18]}),keyboard:true,title:o.c+' ('+o.u+') – '+o.r+': '+nomes(o),zIndexOffset:500}).addTo(map);
  e.d=o;o.t='o';o.el=e;os.push(e);
- o.near=D.pts.filter(function(p){return km(o.y,o.x,p.y,p.x)<=50});
+ o.near=D.pts.filter(function(p){return km(o.y,o.x,p.y,p.x)<=100});
  o.nn=o.near.reduce(function(s,p){return s+p.n},0);wire(e)});
-D.pts.forEach(function(p){p.oms=D.om.filter(function(o){return km(o.y,o.x,p.y,p.x)<=50})});
+D.pts.forEach(function(p){p.oms=D.om.filter(function(o){return km(o.y,o.x,p.y,p.x)<=100})});
 hs.forEach(function(h){var n=node(h),c=h.c,p=h.d;n.setAttribute('tabindex',0);n.setAttribute('role','button');n.setAttribute('aria-label',p.c+' ('+p.u+'): '+pl(p.n,'empresa','empresas'));
  
  n.addEventListener('keydown',function(ev){if(ev.key=='Enter'||ev.key==' '){ev.preventDefault();pin(c)}})});
@@ -187,10 +187,10 @@ function html(d,pin){
    +'<div class="kv"><span>do total de '+esc(d.u)+'</span><b>'+pu.toFixed(1).replace('.',',')+'%</b></div>'
    +'<div class="bar"><i style="width:'+Math.min(100,pu)+'%"></i></div>'
    +empHtml(d,pin)
-   +'<div class="sec">Organizações militares em até 50 km</div>'
+   +'<div class="sec">Organizações militares em até 100 km</div>'
    +(d.oms.length?'<ul class="oml">'+d.oms.map(function(o){return '<li><span>'+esc(o.c)+' · '+esc(o.r)+'</span><small>'+esc(nomes(o))+'</small></li>'}).join('')+'</ul>':'<div style="color:var(--mute)">Nenhuma na amostra</div>');
  }else{
-  h+='<div class="big">'+d.nn+'<small>'+(d.nn==1?'empresa':'empresas')+' em até 50 km</small></div>'
+  h+='<div class="big">'+d.nn+'<small>'+(d.nn==1?'empresa':'empresas')+' em até 100 km</small></div>'
    +'<div class="sec">Unidades</div><ul>'+d.d.split(';').map(function(u){return '<li><span>'+esc(u.trim())+'</span></li>'}).join('')+'</ul>'
    +'<div class="sec">Municípios próximos</div>'
    +(d.near.length?'<ul>'+d.near.slice(0,6).map(function(p){return '<li><span>'+esc(p.c)+' ('+p.u+')</span><em>'+p.n+'</em></li>'}).join('')+'</ul>'+(d.near.length>6?'<div class="ft">+ '+(d.near.length-6)+' municípios</div>':''):'<div style="color:var(--mute)">Nenhum</div>');
