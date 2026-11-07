@@ -17,7 +17,7 @@ h1{font-size:1.05rem;margin:0;font-weight:650}
 .chips{display:flex;gap:8px;flex-wrap:wrap;font-size:.76rem;color:var(--mute)}
 .chips span{display:inline-flex;align-items:center;gap:5px;background:var(--panel);border:1px solid var(--grid);border-radius:99px;padding:2px 9px}
 .lg{display:inline-block;width:10px;height:10px;background:var(--om);border-radius:2px}
-.lc{display:inline-block;width:10px;height:10px;background:var(--pin);opacity:.65;border-radius:50%}
+.lc{display:inline-block;width:10px;height:10px;background:var(--pin);opacity:.65;border-radius:%}
 .map{position:relative;flex:1;min-height:0;background:var(--panel);margin:0 8px 8px;border-radius:12px;overflow:hidden;border:1px solid var(--grid)}
 #lm{position:absolute;inset:0;z-index:0;background:#aad3df}
 .leaflet-container{font-family:inherit}
@@ -144,7 +144,7 @@ var BR=[[-33.9,-74],[5.4,-33.8]];
 function fit(){var w=innerWidth>700;map.fitBounds(BR,{paddingTopLeft:[50,10],paddingBottomRight:[w?250:10,10]})}
 fit();
 var cs=[],os=[],lg=L.layerGroup().addTo(map);
-var ring=L.circle([0,0],{radius:50000,color:'#dc2626',weight:1.5,dashArray:'6 5',fillOpacity:.08,interactive:false});
+var ring=L.circle([0,0],{radius:100000,color:'#dc2626',weight:1.5,dashArray:'6 5',fillOpacity:.08,interactive:false});
 var pinned=null,cur=null,ufh=null,hideT=null,manual=null,openEl=null,lastDrag=0;
 var ufTot={};D.uf.forEach(function(u){ufTot[u[0]]=u[1]});
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
@@ -193,10 +193,10 @@ function html(d,pin){
    +'<div class="kv"><span>do total de '+esc(d.u)+'</span><b>'+pu.toFixed(1).replace('.',',')+'%</b></div>'
    +'<div class="bar"><i style="width:'+Math.min(100,pu)+'%"></i></div>'
    +empHtml(d,pin)
-   +'<div class="sec">Organizações militares em até 50 km</div>'
+   +'<div class="sec">Organizações militares em até 100 km</div>'
    +(d.oms.length?'<ul class="oml">'+d.oms.map(function(o){return '<li><span>'+esc(o.c)+' · '+esc(o.r)+'</span><small>'+esc(nomes(o))+'</small></li>'}).join('')+'</ul>':'<div style="color:var(--mute)">Nenhuma na amostra</div>');
  }else{
-  h+='<div class="big">'+d.nn+'<small>'+(d.nn==1?'empresa':'empresas')+' em até 50 km</small></div>'
+  h+='<div class="big">'+d.nn+'<small>'+(d.nn==1?'empresa':'empresas')+' em até 100 km</small></div>'
    +'<div class="sec">Unidades</div><ul>'+d.d.split(';').map(function(u){return '<li><span>'+esc(u.trim())+'</span></li>'}).join('')+'</ul>'
    +'<div class="sec">Municípios próximos</div>'
    +(d.near.length?'<ul>'+d.near.slice(0,6).map(function(p){return '<li><span>'+esc(p.c)+' ('+p.u+')</span><em>'+p.n+'</em></li>'}).join('')+'</ul>'+(d.near.length>6?'<div class="ft">+ '+(d.near.length-6)+' municípios</div>':''):'<div style="color:var(--mute)">Nenhum</div>');
